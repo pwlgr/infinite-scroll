@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getStoryIds, getStory } from '../services/Api';
+import Story from '../components/Story';
 
 export const Stories = () => {
 	const [ storyIds, setStoryIds ] = useState([]);
 
 	useEffect(() => {
 		getStoryIds().then((data) => setStoryIds(data));
-		getStory(23265754).then((data) => console.log(data));
 	}, []);
-	return <React.Fragment />;
+	return storyIds.map((storyId) => <Story storyId={storyId} />);
 };
