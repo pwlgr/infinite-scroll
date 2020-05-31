@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getStory, getStoryIds } from '../services/Api';
 
+import { StoryWrapper, StoryTitle, StoryMeta, StoryMetaElement } from '../styles/StoryStyles';
+
 const Story = ({ storyId }) => {
 	const [ story, setStory ] = useState({});
 
@@ -8,7 +10,21 @@ const Story = ({ storyId }) => {
 		getStory(storyId).then((data) => data && data.url && setStory(data));
 	}, []);
 
-	return story && story.url ? <p>{story.title}</p> : null;
+	return story && story.url ? (
+		<StoryWrapper data-testid="story">
+			<StoryTitle>
+				<a href={story.url}>{story.title}</a>
+			</StoryTitle>
+			<StoryMeta>
+				<span data-testid="story-by">
+					<StoryMetaElement color="#000">By:</StoryMetaElement> {story.by}
+				</span>
+				<span data-testid="story-time">
+					<StoryMetaElement color="#000">Posted:</StoryMetaElement> {` `}
+				</span>
+			</StoryMeta>
+		</StoryWrapper>
+	) : null;
 };
 
 export default Story;
