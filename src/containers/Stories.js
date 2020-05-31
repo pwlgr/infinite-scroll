@@ -8,5 +8,5 @@ export const Stories = () => {
 	useEffect(() => {
 		getStoryIds().then((data) => setStoryIds(data));
 	}, []);
-	return storyIds.map((storyId) => <Story storyId={storyId} />);
+	return storyIds.map((storyId) => <Story key={storyId} storyId={storyId} />);
 };

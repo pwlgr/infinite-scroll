@@ -8,7 +8,7 @@ const Story = ({ storyId }) => {
 		getStory(storyId).then((data) => data && data.url && setStory(data));
 	}, []);
 
-	return <p>{JSON.stringify(story)}</p>;
+	return story && story.url ? <p>{story.title}</p> : null;
 };
 
 export default Story;
