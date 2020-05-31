@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { getStory, getStoryIds } from '../services/Api';
 
 const Story = ({ storyId }) => {
-	const [ storyIds, setStoryIds ] = useState([]);
+	const [ story, setStory ] = useState({});
 
 	useEffect(() => {
-		getStoryIds().then((data) => setStoryIds(data));
+		getStory(storyId).then((data) => data && data.url && setStory(data));
 	}, []);
 
-	return <p>{storyId}</p>;
+	return <p>{JSON.stringify(story)}</p>;
 };
 
 export default Story;
