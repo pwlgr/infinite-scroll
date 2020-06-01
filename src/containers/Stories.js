@@ -5,10 +5,14 @@ import Story from '../components/Story';
 import {
 	GlobalStyle,
 	StoriesContainerWrapper,
-  } from '../styles/StoriesContainerStyles';
+	} from '../styles/StoriesContainerStyles';
+	
+	import { useInfiniteScroll } from '../hooks/UseInfiniteScroll'
 
 export const Stories = () => {
 	const [ storyIds, setStoryIds ] = useState([]);
+
+	useInfiniteScroll()
 
 	useEffect(() => {
 		getStoryIds().then((data) => setStoryIds(data));
