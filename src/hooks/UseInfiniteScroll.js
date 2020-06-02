@@ -6,8 +6,32 @@ export const useInfiniteScroll = () => {
 	const [ count, setCount ] = useState(STORY_INCREMNT);
 
 	const handleScroll = () => {
-		console.log('window', window);
+		if (
+			window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight ||
+			loading
+		) {
+			return false;
+		}
+		setLoading(true);
 	};
 
-	handleScroll();
+	useEffect(
+		() => {
+			if (!loading) return;
+			if (count + STORY_INCREMNT >= MAX_STORIES) {
+				setCount(MAX_STORIES);
+			} else {
+				setCount(count + STORY_INCREMNT);
+			}
+			setLoading(false);
+		},
+		[ loading ]
+	);
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll); //clean up
+	}, []);
+
+	return { count };
 };
